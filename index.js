@@ -7,6 +7,16 @@ const Discord = require("discord.js");
 const client = new Discord.Client({ intents: ["GUILDS", "GUILD_MESSAGES"] });
 client.login(process.env.DISCORD_TOKEN);
 
+//Minecraft Bot
+const mineflayer = require('mineflayer')
+const bot = mineflayer.createBot({
+  host: 'stuck.hypixel.net',
+  username: process.env.EMAIL,
+  password: process.env.PASSWORD,
+  version: "1.8.9",
+  viewDistance: 'short'
+})
+
 //Imports
 const fs = require("fs");
 
@@ -18,15 +28,28 @@ try {
   console.log(e);
 }
 
-//Event Handler
+//Discord Event Handler
 const eventFiles = fs.readdirSync(__dirname + "/discord/events").filter((file) => file.endsWith(".js"));
 
 for (const file of eventFiles) {
   const event = require(`./discord/events/${file}`);
   if (event.once) {
-    client.once(event.name, (...args) => event.execute(...args, client));
+    client.once(event.name, (...args) => event.execute(...args, client, bot));
   } else {
-    client.on(event.name, (...args) => event.execute(...args, client));
+    client.on(event.name, (...args) => event.execute(...args, client, bot));
+  }
+}
+
+
+//Minecraft Event Handler
+const minecraftEventFiles = fs.readdirSync(__dirname + "/minecraft/events").filter((file) => file.endsWith(".js"));
+
+for (const file of minecraftEventFiles) {
+  const event = require(`./minecraft/events/${file}`);
+  if (event.once) {
+    bot.once(event.name, (...args) => event.execute(...args, bot, client));
+  } else {
+    bot.on(event.name, (...args) => event.execute(...args, bot, client));
   }
 }
 

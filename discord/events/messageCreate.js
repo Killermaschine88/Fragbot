@@ -1,12 +1,17 @@
 module.exports = {
   name: "messageCreate",
-  async execute(message, client) {
+  async execute(message, client, bot) {
     //Imports
 
     //Code
     if (!message.content.startsWith(process.env.PREFIX || "?")) return;
     if (message.author.bot) return;
     if (message.channel.parent.id !== "954349475151888424") return;
+
+    //chat channel
+    if(message.channel.id === '954359553842098196') {
+      return await bot.chat(message.content)
+    }
 
     const args = message.content
       .slice(process.env.PREFIX || "?")
