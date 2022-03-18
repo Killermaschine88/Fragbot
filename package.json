@@ -1,0 +1,42 @@
+{
+  "name": "development",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "pm2 start index.js",
+    "kill": "pm2 delete 'all'",
+    "format": "npx prettier --write ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.26.1",
+    "colorette": "^2.0.16",
+    "discord.js": "^13.6.0",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "pm2": "^5.2.0",
+    "prettier": "^2.6.0",
+    "pretty-ms": "^7.0.1",
+    "sourcebin": "^4.3.5"
+  },
+  "prettier": {
+    "arrowParens": "always",
+    "bracketSameLine": false,
+    "bracketSpacing": true,
+    "insertPragma": false,
+    "jsxSingleQuote": false,
+    "printWidth": 500,
+    "proseWrap": "preserve",
+    "quoteProps": "as-needed",
+    "requirePragma": false,
+    "semi": true,
+    "singleQuote": false,
+    "tabWidth": 2,
+    "trailingComma": "es5",
+    "useTabs": false,
+    "vueIndentScriptAndStyle": false
+  }
+}
